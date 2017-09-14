@@ -166,7 +166,6 @@ if __name__ == '__main__':
             htmlText = open('test.html').read()
 
             print htmlText
-            print type(htmlText)
 
             msg = htmlText
             sendmail(msg)
