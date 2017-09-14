@@ -147,6 +147,11 @@ if __name__ == '__main__':
 
             print new_userinfo_list
 
+            # 记录日志
+            logfile = open('run.log','a')
+            logfile.write(str(new_userinfo_list)+'\n')
+            logfile.close()
+
             # 记录mark_uid
             f = open('mark_uid.txt','a')
             f.write(str(mark_uid)+'\n')
@@ -176,6 +181,9 @@ if __name__ == '__main__':
 
         else:
             print "没有新用户注册."
+            logfile = open('run.log','a')
+            logfile.write('====================================='+'\n'+'没有新用户注册.'+'\n')
+            logfile.close()
             pass
 
 
