@@ -87,30 +87,32 @@ def sendmail(msg):
        print traceback.format_exc()
 
 # 结果转化成html
-def to_html(new_userinfo,month_userinfo):
+def to_html(month_userinfo_list,new_userinfo_list):
     page = PyH('new mail')
-    page<<div(style="text-align:left")<<h4('HI:all  congratulation!!!!     you have a new user sign in.')
+    page<<'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
+    page<<div(style="text-align:left")<<h4('HI:all \n congratulation   !!!! \n you have a new user sign in.')
     page<<div(style="text-align:center")<<h4('The total information')
     mytab = page << table(border="1",cellpadding="3",cellspacing="0",style="margin:auto")
     tr3 = mytab << tr(bgcolor="lightgrey")
     tr3 << th('month_count') + th('total_count')
-    for m in range(len(month_userinfo)):
+    for i in range(len(month_userinfo_list)):
         tr4 = mytab << tr()
-        for n in range(2):
-            tr4 << td(month_userinfo[m][n])
+        for j in range(2):
+            tr4 << td(month_userinfo_list[i][j])
 
     page<<div(style="text-align:center")<<h4('new user info')
     mytab = page << table(border="1",cellpadding="3",cellspacing="0",style="margin:auto")
     tr1 = mytab << tr(bgcolor="lightgrey")
     tr1 << th('uid') + th('username')+th('real_name') +th('phone') + th('wechat') +th('addtime')
-    for i in range(len(new_userinfo)):
+    for i in range(len(new_userinfo_list)):
         tr2 = mytab << tr()
         for j in range(6):
-            tr2 << td(new_userinfo[i][j])
-            if new_userinfo[i][j]=='':
+            tr2 << td(new_userinfo_list[i][j])
+            if linew_userinfo_listst[i][j]==' ':
+                tr2.attributes['bgcolor']='yellow'
+            if new_userinfo_list[i][j]=='':
                 tr2[1].attributes['style']='color:red'
-    page.printOut('test.html')
-
+    return page.printOut('test.html')
 
 if __name__ == '__main__':
 
@@ -158,17 +160,21 @@ if __name__ == '__main__':
             print "本月用户数量为: " + str(user_count_month[0])
             # 总计用户数
             user_total = get_userinfo(sql = 'select count(*) from bx_user where uid>3000 ')[0]
-            print "总用户数量为: " + str(user_total)
+            print "总用户数量为: " + str(user_total[0])
 
             month_userinfo_list = [[user_count_month[0],user_total[0]]]
             print    month_userinfo_list
 
-            htmlText = open('test.html').read()
+            htmlfile = open('test.html')
+            htmlText = htmlfile.read()
 
             print htmlText
 
             msg = htmlText
             sendmail(msg)
+            htmlfile.close()
+
+
 
         else:
             print "没有新用户注册."
