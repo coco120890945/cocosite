@@ -90,9 +90,10 @@ def sendmail(msg):
 def to_html(month_userinfo_list,new_userinfo_list):
     page = PyH('new mail')
     page<<'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
-    page<<div(style="text-align:left")<<h4('HI:all \n congratulation   !!!! \n you have a new user sign in.')
-    page<<div(style="text-align:left")<<h4('       you have a new user sign in.')
-    page<<div(style="text-align:left")<<h4('       is_proxy是否代理人,1是代理人.')
+    page<<'<font  >&nbsp;&nbsp;&nbsp;&nbsp;HI:all</font>'
+    page<<div(style="text-align:left")<<h4('&nbsp;&nbsp;&nbsp;&nbsp; congratulation   !!!! ')
+    page<<div(style="text-align:left")<<h4('&nbsp;&nbsp;&nbsp;&nbsp; you have a new user sign in.')
+    page<<'<font color="#a52a2a"  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is_proxy is flag :1 dailiren  0 toubaoren.</font>'
     page<<div(style="text-align:center")<<h4('The total information')
     mytab = page << table(border="1",cellpadding="3",cellspacing="0",style="margin:auto")
     tr3 = mytab << tr(bgcolor="lightgrey")
@@ -110,7 +111,7 @@ def to_html(month_userinfo_list,new_userinfo_list):
         tr2 = mytab << tr()
         for j in range(7):
             tr2 << td(new_userinfo_list[i][j])
-            if linew_userinfo_listst[i][j]==' ':
+            if new_userinfo_list[i][j]==' ':
                 tr2.attributes['bgcolor']='yellow'
             if new_userinfo_list[i][j]=='':
                 tr2[1].attributes['style']='color:red'
