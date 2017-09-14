@@ -54,7 +54,14 @@ def sendmail(msg):
     '''
     fromaddr = "lantian_929@163.com"
     smtpaddr = "smtp.163.com"
-    toaddrs = ["120890945@qq.com","943489924@qq.com","271728979@qq.com","505972916@qq.com","90579323@qq.com","287112491@qq.com","136177121@qq.com","517056585@qq.com"]
+    toaddrs = ["120890945@qq.com",
+               "943489924@qq.com",
+               "271728979@qq.com",
+               "505972916@qq.com",
+               "290579323@qq.com",
+               "287112491@qq.com",
+               "136177121@qq.com",
+               "517056585@qq.com"]
     subject = "恭喜您,您有新用户注册。。。"
     password = "lantian929?"
 
