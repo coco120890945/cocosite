@@ -174,8 +174,6 @@ if __name__ == '__main__':
             sendmail(msg)
             htmlfile.close()
 
-
-
         else:
             print "没有新用户注册."
             pass
