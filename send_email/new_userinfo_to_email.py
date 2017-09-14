@@ -91,22 +91,24 @@ def to_html(month_userinfo_list,new_userinfo_list):
     page = PyH('new mail')
     page<<'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
     page<<div(style="text-align:left")<<h4('HI:all \n congratulation   !!!! \n you have a new user sign in.')
+    page<<div(style="text-align:left")<<h4('       you have a new user sign in.')
+    page<<div(style="text-align:left")<<h4('       is_proxy是否代理人,1是代理人.')
     page<<div(style="text-align:center")<<h4('The total information')
     mytab = page << table(border="1",cellpadding="3",cellspacing="0",style="margin:auto")
     tr3 = mytab << tr(bgcolor="lightgrey")
-    tr3 << th('month_count') + th('total_count')
+    tr3 << th('month_count') +th('dailiren_month_count')+th('toubaoren_month_count')+ th('total_count')
     for i in range(len(month_userinfo_list)):
         tr4 = mytab << tr()
-        for j in range(2):
+        for j in range(4):
             tr4 << td(month_userinfo_list[i][j])
 
     page<<div(style="text-align:center")<<h4('new user info')
     mytab = page << table(border="1",cellpadding="3",cellspacing="0",style="margin:auto")
     tr1 = mytab << tr(bgcolor="lightgrey")
-    tr1 << th('uid') + th('username')+th('real_name') +th('phone') + th('wechat') +th('addtime')
+    tr1 << th('uid') + th('username')+th('real_name') +th('phone') + th('wechat') +th('is_proxy')+th('addtime')
     for i in range(len(new_userinfo_list)):
         tr2 = mytab << tr()
-        for j in range(6):
+        for j in range(7):
             tr2 << td(new_userinfo_list[i][j])
             if linew_userinfo_listst[i][j]==' ':
                 tr2.attributes['bgcolor']='yellow'
@@ -126,7 +128,7 @@ if __name__ == '__main__':
         f.close()
     print mark_uid
     if mark_uid < max_uid:
-        userinfo = get_userinfo(sql='select uid,username,real_name,phone,qq,email,weixin,addtime from bx_user where uid>%s'%mark_uid)
+        userinfo = get_userinfo(sql='select uid,username,real_name,phone,qq,email,weixin,is_proxy,addtime from bx_user where uid>%s'%mark_uid)
         user_count = len(userinfo)
 
         if user_count>0:
@@ -137,11 +139,12 @@ if __name__ == '__main__':
                 real_name = i[2]
                 phone = i[3]
                 weixin = i[6]
-                addtime = i[7]
+                is_proxy = i[7]
+                addtime = i[8]
                 # 转换addtime为时间格式
                 addtime = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(addtime))
                 # new_userinfo = {"uid":uid,"username":username,"real_name":real_name,"phone":phone,"weixin":weixin,"addtime":addtime}
-                new_userinfo = [uid,username,real_name,phone,weixin,addtime]
+                new_userinfo = [uid,username,real_name,phone,weixin,is_proxy,addtime]
                 new_userinfo_list.append(new_userinfo)
             mark_uid = uid
 
@@ -163,11 +166,19 @@ if __name__ == '__main__':
             print month_time
             user_count_month = get_userinfo(sql = ' select count(*) from bx_user where addtime>=%s '%month_time)[0]
             print "本月用户数量为: " + str(user_count_month[0])
+
+            # 本月代理人注册数
+            dailiren_month_count = get_userinfo(sql = ' select count(*) from bx_user where addtime>=%s and is_proxy=1 '%month_time)[0]
+
+            # 本月投保人注册数
+            toubaoren_month_count =  get_userinfo(sql = ' select count(*) from bx_user where addtime>=%s and is_proxy=0 '%month_time)[0]
+
+
             # 总计用户数
             user_total = get_userinfo(sql = 'select count(*) from bx_user where uid>3000 ')[0]
             print "总用户数量为: " + str(user_total[0])
 
-            month_userinfo_list = [[user_count_month[0],user_total[0]]]
+            month_userinfo_list = [[user_count_month[0],dailiren_month_count[0],toubaoren_month_count[0],user_total[0]]]
             print    month_userinfo_list
 
             htmlfile = open('test.html')
@@ -185,15 +196,6 @@ if __name__ == '__main__':
             logfile.write('====================================='+'\n'+'没有新用户注册.'+'\n')
             logfile.close()
             pass
-
-
-
-
-
-
-
-
-
 
 
 
