@@ -182,6 +182,7 @@ if __name__ == '__main__':
             month_userinfo_list = [[user_count_month[0],dailiren_month_count[0],toubaoren_month_count[0],user_total[0]]]
             print    month_userinfo_list
 
+            to_html(month_userinfo_list,new_userinfo_list)
             htmlfile = open('test.html')
             htmlText = htmlfile.read()
 
