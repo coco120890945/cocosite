@@ -21,7 +21,7 @@ from email.header import Header
 _pwd='zpgflkiksbxibggf'
 
 global conn_mysql
-conn_mysql = MySQLdb.connect(host='118.89.220.36',user='mha_user',passwd='gc895316',db='bx_abc')
+conn_mysql = MySQLdb.connect(host='118.89.220.36',user='mha_user',passwd='gc895316',db='bx_abc',charset='utf8')
 
 def get_userinfo(sql):
     cur = conn_mysql.cursor()

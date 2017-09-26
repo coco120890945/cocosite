@@ -16,11 +16,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
 
-# qq邮箱授权码
-_pwd='zpgflkiksbxibggf'
-
 def do_op_db(sql):
-    conn_mysql = MySQLdb.connect(host='118.89.220.36',user='mha_user',passwd='gc895316',db='bx_abc',charset='utf8')
+    conn_mysql = MySQLdb.connect(host='118.89.220.36',user='mha_user',passwd='gc895316',db='bx_abc')
     cur = conn_mysql.cursor()
     cur.execute(sql)
     rs = cur.fetchall()
@@ -51,14 +48,14 @@ def sendmail(msg):
     '''
     fromaddr = "lantian_929@163.com"
     smtpaddr = "smtp.163.com"
-    toaddrs = ["120890945@qq.com",
-               "943489924@qq.com",
-               "271728979@qq.com",
-               "505972916@qq.com",
-               "290579323@qq.com",
-               "287112491@qq.com",
-               "136177121@qq.com",
-               "517056585@qq.com"]
+    toaddrs = ["120890945@qq.com"]
+               # "943489924@qq.com",
+               # "271728979@qq.com",
+               # "505972916@qq.com",
+               # "290579323@qq.com",
+               # "287112491@qq.com",
+               # "136177121@qq.com",
+               # "517056585@qq.com"]
     subject = "恭喜您,您有新用户注册。。。"
     password = "lantian929?"
 
